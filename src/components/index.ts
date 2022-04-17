@@ -1,3 +1,4 @@
+export * from './ContentDividerSection';
 export * from './Header';
 export * from './Hero';
 export * from './IntroSection';

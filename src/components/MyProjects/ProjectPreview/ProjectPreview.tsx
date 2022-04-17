@@ -44,26 +44,6 @@ export const ProjectPreview = ({
 				<Typography sx={{ color: colors.text }}>{body}</Typography>
 				{button && (
 					<Link to={button.href!} className={classes.button}>
-						{/* <Button
-							variant={
-								button.variant === 'text'
-									? 'text'
-									: button.variant === 'primary'
-									? 'contained'
-									: 'outlined'
-							}
-							endIcon={
-								<SvgImage
-									svg={button.icon.svg}
-									file={button.icon.file}
-									alt="icon"
-									width={12}
-								/>
-							}
-							sx={{ color: colors.text }}
-						>
-							{button.text}
-						</Button> */}
 						<Typography sx={{ color: colors.button }}>{button.text}</Typography>
 						<SvgImage
 							svg={button.icon.svg}
@@ -75,7 +55,6 @@ export const ProjectPreview = ({
 				)}
 			</Box>
 			<Box className={classes.imageContainer}>
-				{/* <GatsbyImage image={gatsbyImage!} alt={imageAlt} /> */}
 				<SvgImage
 					svg={image.svg}
 					file={image.file}

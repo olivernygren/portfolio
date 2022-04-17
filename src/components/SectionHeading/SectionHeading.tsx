@@ -10,7 +10,7 @@ export const SectionHeading = ({ text }: ISectionHeading) => {
 	const classes = useStyles();
 	return (
 		<Box className={classes.container}>
-			<Typography variant="h3" className={classes.text}>
+			<Typography variant="h2" className={classes.text}>
 				{text}
 			</Typography>
 		</Box>

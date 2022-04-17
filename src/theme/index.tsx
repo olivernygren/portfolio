@@ -61,21 +61,21 @@ export const theme = createTheme({
 		fontWeightRegular: 400,
 		h1: {
 			fontWeight: 600,
-			fontSize: 60,
+			fontSize: 56,
 			color: '#303030',
 			zIndex: 1,
 			fontFamily: FONT_SECONDARY,
 		},
 		h2: {
 			fontWeight: 600,
-			fontSize: 50,
+			fontSize: 40,
 			color: '#303030',
 			zIndex: 1,
 			fontFamily: FONT_SECONDARY,
 		},
 		h3: {
 			fontWeight: 500,
-			fontSize: 40,
+			fontSize: 24,
 			color: '#303030',
 			zIndex: 1,
 			fontFamily: FONT_SECONDARY,
@@ -155,6 +155,7 @@ export const theme = createTheme({
 					'&:hover': {
 						borderWidth: 1.5,
 						borderColor: '#1259EF',
+						backgroundColor: 'transparent',
 					},
 					padding: '6px 20px',
 					width: 'fit-content',

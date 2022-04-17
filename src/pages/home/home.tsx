@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { Grid } from '@mui/material';
 
-import { Header, Hero, IntroSection, MyProjects } from '../../components';
+import {
+	ContentDividerSection,
+	Header,
+	Hero,
+	IntroSection,
+	MyProjects,
+} from '../../components';
 import { useStyles } from './styles';
 
 export const Home = () => {
@@ -12,6 +18,7 @@ export const Home = () => {
 			<Hero />
 			<IntroSection />
 			<MyProjects />
+			<ContentDividerSection />
 		</Grid>
 	);
 };
