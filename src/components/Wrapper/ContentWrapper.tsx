@@ -7,7 +7,7 @@ interface IContentWrapper {
 	direction?: 'row' | 'column';
 }
 
-const ContentWrapper = ({ children, direction }: IContentWrapper) => {
+export const ContentWrapper = ({ children, direction }: IContentWrapper) => {
 	const classes = useStyles();
 	return (
 		<Grid container direction={direction} className={classes.wrapper}>

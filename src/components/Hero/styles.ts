@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 export const useStyles = makeStyles((theme) => ({
 	root: {
 		paddingTop: 160,
-		paddingBottom: 160,
+		paddingBottom: 320,
 	},
 	container: {
 		flexWrap: 'nowrap',
