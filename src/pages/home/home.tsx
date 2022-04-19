@@ -8,6 +8,7 @@ import {
 	IntroSection,
 	MyProjects,
 	Skillset,
+	WhoAmI,
 } from '../../components';
 import { useStyles } from './styles';
 
@@ -21,6 +22,7 @@ export const Home = () => {
 			<MyProjects />
 			<ContentDividerSection />
 			<Skillset />
+			<WhoAmI />
 		</Grid>
 	);
 };

@@ -6,4 +6,5 @@ export * from './MyProjects';
 export * from './SectionHeading';
 export * from './Skillset';
 export * from './SvgImage';
+export * from './WhoAmI';
 export * from './Wrapper';

@@ -59,3 +59,10 @@ export type SkillsetSectionType = {
 		logos: SvgType[];
 	};
 };
+
+export type ListItemType = {
+	text: string;
+	order: number;
+	variant: string;
+	icon: SvgType;
+};

@@ -191,6 +191,22 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiListItem: {
+			styleOverrides: {
+				root: {
+					paddingLeft: 0,
+					paddingTop: 4,
+					paddingBottom: 4,
+				},
+			},
+		},
+		MuiListItemIcon: {
+			styleOverrides: {
+				root: {
+					minWidth: 40,
+				},
+			},
+		},
 	},
 });
 
