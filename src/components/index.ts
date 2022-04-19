@@ -4,5 +4,6 @@ export * from './Hero';
 export * from './IntroSection';
 export * from './MyProjects';
 export * from './SectionHeading';
+export * from './Skillset';
 export * from './SvgImage';
 export * from './Wrapper';

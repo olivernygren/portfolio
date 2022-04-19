@@ -14,23 +14,26 @@ export type ButtonType = {
 	icon?: any;
 };
 
+export type SvgType = {
+	svg: {
+		content: any;
+	};
+	file: {
+		contentType: string;
+		url: string;
+		fileName: string;
+	};
+	title: string;
+	width?: number;
+};
+
 export type IntroSectionType = {
 	node: {
 		heading: string;
 		body: {
 			body: string;
 		};
-		icon: {
-			svg: {
-				content: any;
-			};
-			file: {
-				contentType: string;
-				url: string;
-				fileName: string;
-			};
-			title: string;
-		};
+		icon: SvgType;
 	};
 };
 
@@ -41,21 +44,18 @@ export type ProjectPreviewType = {
 			body: string;
 		};
 		button: ButtonType | any;
-		image: {
-			title: string;
-			width: number;
-			svg: {
-				content: any;
-			};
-			file: {
-				contentType: string;
-				fileName: string;
-				url: string;
-			};
-		};
+		image: SvgType;
 		backgroundColor: string;
 		order: number;
 		textColor: string;
 		buttonColor: string;
+	};
+};
+
+export type SkillsetSectionType = {
+	heading: string;
+	areas: {
+		title: string;
+		logos: SvgType[];
 	};
 };

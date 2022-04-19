@@ -94,7 +94,7 @@ export const theme = createTheme({
 		},
 		h6: {
 			fontWeight: 600,
-			fontSize: 16,
+			fontSize: 18,
 			// color: '#303030',
 			zIndex: 1,
 		},
@@ -152,13 +152,16 @@ export const theme = createTheme({
 					borderRadius: 6,
 					borderWidth: 1.5,
 					borderColor: '#1259EF',
+					padding: '6px 20px',
+					width: 'fit-content',
 					'&:hover': {
 						borderWidth: 1.5,
 						borderColor: '#1259EF',
 						backgroundColor: 'transparent',
 					},
-					padding: '6px 20px',
-					width: 'fit-content',
+					'& > span > div:nth-of-type(1)': {
+						fontSize: '14px',
+					},
 				},
 				text: {
 					borderRadius: 6,
@@ -177,6 +180,15 @@ export const theme = createTheme({
 			defaultProps: {
 				disableElevation: true,
 				disableRipple: true,
+			},
+		},
+		MuiPopover: {
+			styleOverrides: {
+				paper: {
+					boxShadow: `0px 0px 4px 0px #f0f0f0`,
+					padding: '6px 12px',
+					position: 'absolute',
+				},
 			},
 		},
 	},

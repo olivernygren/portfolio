@@ -7,6 +7,7 @@ import {
 	Hero,
 	IntroSection,
 	MyProjects,
+	Skillset,
 } from '../../components';
 import { useStyles } from './styles';
 
@@ -19,6 +20,7 @@ export const Home = () => {
 			<IntroSection />
 			<MyProjects />
 			<ContentDividerSection />
+			<Skillset />
 		</Grid>
 	);
 };

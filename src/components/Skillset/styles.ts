@@ -1,19 +1,22 @@
 import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles((theme) => ({
-	root: {
-		backgroundColor: theme.palette.primary.light,
-		marginBottom: 100,
-		marginTop: 50,
-	},
 	container: {
+		display: 'flex',
+		flexDirection: 'column',
+		width: '100%',
+		marginBottom: 150,
+	},
+	contentContainer: {
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		height: 200,
+		height: 125,
 		width: '100%',
 	},
-	heading: {
-		paddingBottom: 16,
+	logoContainer: {
+		display: 'grid',
+		placeItems: 'center',
+		columnGap: 20,
 	},
 }));

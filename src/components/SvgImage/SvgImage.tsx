@@ -16,7 +16,7 @@ export const SvgImage = ({ svg, file, alt, width }: ISvgImage) => {
 			return (
 				<div
 					dangerouslySetInnerHTML={{ __html: svg.content }}
-					style={{ width: width }}
+					style={{ width: width, maxHeight: 'fit-content' }}
 				/>
 			);
 		}

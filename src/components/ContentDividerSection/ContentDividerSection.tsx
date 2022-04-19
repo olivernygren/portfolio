@@ -8,6 +8,7 @@ import { ContentWrapper } from '../Wrapper';
 import { useStyles } from './styles';
 import { Link } from 'gatsby';
 import { motion } from 'framer-motion';
+import { SvgImage } from '../SvgImage';
 
 export const ContentDividerSection = () => {
 	const { contentfulProjectsCtaSection } = useProjectsCTAData();
@@ -19,9 +20,8 @@ export const ContentDividerSection = () => {
 		button: {
 			href: contentfulProjectsCtaSection.button.href,
 			icon: {
-				image: getImage(
-					contentfulProjectsCtaSection.button.icon.gatsbyImageData
-				),
+				svg: contentfulProjectsCtaSection.button.icon.svg,
+				file: contentfulProjectsCtaSection.button.icon.file,
 				alt: contentfulProjectsCtaSection.button.icon.title,
 			},
 			text: contentfulProjectsCtaSection.button.text,
@@ -54,9 +54,11 @@ export const ContentDividerSection = () => {
 									: 'outlined'
 							}
 							endIcon={
-								<GatsbyImage
-									image={data.button.icon.image!}
+								<SvgImage
+									svg={data.button.icon.svg}
+									file={data.button.icon.file}
 									alt={data.button.icon.alt}
+									width={12}
 								/>
 							}
 						>

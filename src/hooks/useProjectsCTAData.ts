@@ -10,7 +10,14 @@ export const useProjectsCTAData = () => {
 				button {
 					href
 					icon {
-						gatsbyImageData(width: 8)
+						svg {
+							content
+						}
+						file {
+							contentType
+							fileName
+							url
+						}
 						title
 					}
 					variant
