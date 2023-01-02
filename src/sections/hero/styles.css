@@ -1,0 +1,33 @@
+h1 {
+  font-size: 40px;
+  color: #121212
+}
+
+.header-logo {
+  position: fixed;
+  inset: 20px;
+  width: fit-content;
+} 
+
+.hero {
+  height: fit-content
+}
+
+.hero .content {
+  display: grid;
+  grid-template-columns: auto 600px;
+  align-content: center;
+}
+
+.hero p {
+  color: #ADADAD
+}
+
+.hero .content .text {
+  max-width: 380px;
+  margin: auto 0 auto 120px;
+}
+
+.hero-illustration {
+  width: 600px;
+}
