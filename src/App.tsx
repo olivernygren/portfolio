@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { About, Clients, Footer, Hero, Skills } from './sections';
+import { About, Clients, Footer, Hero, LastCTA, Skills } from './sections';
 
 const HomePage = () => {
 	return (
@@ -9,6 +9,7 @@ const HomePage = () => {
 			<Clients />
 			<About />
 			<Skills />
+			<LastCTA />
 			<Footer />
 		</>
 	);

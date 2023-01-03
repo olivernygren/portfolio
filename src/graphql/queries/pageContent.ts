@@ -61,6 +61,15 @@ export const SkillsQuery = gql`
 	}
 `;
 
+export const LastCTAQuery = gql`
+	query {
+		lastCta(where: { id: "clcge5rvvaf3v0auuim13dlo7" }) {
+			buttonText
+			heading
+		}
+	}
+`;
+
 export const FooterQuery = gql`
 	query {
 		footer(where: { id: "clcg5pb5ja0xk0aussu2r8f9x" }) {

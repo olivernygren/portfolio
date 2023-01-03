@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'urql';
+import { motion } from 'framer-motion';
 
 import { FooterQuery } from '../../graphql';
 import { SocialMediaLink } from '../../types';
@@ -24,13 +25,13 @@ export const Footer = () => {
 			<div className="social-media-icons">
 				{data.footer.socialMediaIcons.map(
 					(socialMediaLink: SocialMediaLink) => (
-						<a href={socialMediaLink.link}>
+						<motion.a href={socialMediaLink.link} whileHover={{ scale: 1.1 }}>
 							<img
 								src={socialMediaLink.icon.url}
 								alt="Icon"
 								className="social-media-icon"
 							/>
-						</a>
+						</motion.a>
 					)
 				)}
 			</div>

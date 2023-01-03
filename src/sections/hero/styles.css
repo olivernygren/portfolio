@@ -6,6 +6,7 @@ h1 {
   position: fixed;
   inset: 20px;
   width: fit-content;
+  transition: 50ms ease-in-out;
 } 
 
 .hero {

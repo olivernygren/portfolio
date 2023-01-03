@@ -1,0 +1,27 @@
+.last-cta {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 100px auto;
+}
+
+.last-cta button {
+  width: fit-content;
+  padding: 16px 30px;
+  background-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #121212;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 250ms ease-in-out;
+}
+
+.last-cta button:hover {
+  background-color: #121212;
+  color: white;
+}

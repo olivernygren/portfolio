@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'urql';
+import { motion } from 'framer-motion';
 
 import { HeroQuery } from '../../graphql';
 import './styles.css';
@@ -20,7 +21,12 @@ export const Hero = () => {
 	return (
 		<div className="hero">
 			<div className="content">
-				<img src={data.hero.logo.url} alt="Logo" className="header-logo" />
+				<motion.img
+					src={data.hero.logo.url}
+					alt="Logo"
+					className="header-logo"
+					whileHover={{ transform: `rotate(360deg)` }}
+				/>
 				<div className="text">
 					<h1>{data.hero.heading}</h1>
 					<p>{data.hero.textBody}</p>
