@@ -17,6 +17,7 @@ body {
 h1, h2, h3, h4 {
   font-family: 'Montserrat';
   font-weight: 800;
+  color: #121212
 }
 
 h2 {
@@ -26,6 +27,7 @@ h2 {
 p {
   font-size: 16px;
   line-height: 160%;
+  color: #5C5C5C;
 }
 
 /* code {

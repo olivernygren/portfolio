@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'urql';
+import { Picker } from '../../components';
 
 import { ClientsQuery } from '../../graphql';
+import './styles.css';
 
 export const Clients = () => {
+	const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
 	const [result] = useQuery({ query: ClientsQuery });
 	const { data, fetching, error } = result;
 
@@ -29,39 +33,36 @@ export const Clients = () => {
 					<p>{data.clientsSection.textBody}</p>
 				</div>
 				<div className="testimonials">
-					<div className="picker">
+					<div className="picker-container">
 						{data.clientsSection.testimonials.map(
 							(testimonial: string, index: number) => (
-								// SKAPA KOMPONENT
-								<div
-									className="picker-button"
-									onClick={() => console.log(index + 1)}
+								<Picker
+									index={index}
+									currentTestimonial={currentTestimonial}
+									setCurrentTestimonial={setCurrentTestimonial}
 								/>
 							)
 						)}
-						{/* {data.clientsSection.testimonials.map(
-							(testimonial: string, index: number) => (
-								// SKAPA KOMPONENT */}
-						<div className="testimonial">
-							<div className="header">
+					</div>
+					<div className="testimonial">
+						<div className="header">
+							<img
+								src={data.clientsSection.quote.url}
+								alt="quote"
+								className="quote"
+							/>
+							<div className="rating">
+								<h6>5</h6>
 								<img
-									src={data.clientsSection.quote.url}
-									alt="quote"
+									src={data.clientsSection.star.url}
+									alt="Star"
 									className="quote"
 								/>
-								<div className="rating">
-									<p>5</p>
-									<img
-										src={data.clientsSection.star.url}
-										alt="Star"
-										className="quote"
-									/>
-								</div>
 							</div>
-							<div className="p">{data.clientsSection.testimonials[0]}</div>
 						</div>
-						{/* )
-						)} */}
+						<p className="text">
+							{data.clientsSection.testimonials[currentTestimonial]}
+						</p>
 					</div>
 				</div>
 			</div>

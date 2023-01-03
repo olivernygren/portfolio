@@ -1,0 +1,15 @@
+.skills {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* max-width: 1200px; */
+  margin: 180px auto 0 auto;
+}
+
+.skills-image {
+  max-width: 350px;
+}
+
+.skills .text {
+  max-width: 450px;
+}

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Hero } from './sections';
-import { Clients } from './sections/clients';
-
-// TA IN DATA SOM PROPS TILL VARJE SECTION
+import { About, Clients, Footer, Hero, Skills } from './sections';
 
 const HomePage = () => {
 	return (
 		<>
 			<Hero />
 			<Clients />
+			<About />
+			<Skills />
+			<Footer />
 		</>
 	);
 };

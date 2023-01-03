@@ -1,0 +1,15 @@
+.about {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  /* max-width: 1200px; */
+  margin: 120px auto 0 auto;
+}
+
+.about .me-image {
+  max-width: 450px;
+}
+
+.about .text {
+  max-width: 450px;
+}
