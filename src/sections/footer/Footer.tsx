@@ -10,7 +10,7 @@ export const Footer = () => {
 	const [result] = useQuery({ query: FooterQuery });
 	const { data, fetching, error } = result;
 
-	if (fetching) return <p>Loading...</p>;
+	if (fetching) return <></>;
 	if (error)
 		return (
 			<p>

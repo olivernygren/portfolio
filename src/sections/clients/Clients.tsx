@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useQuery } from 'urql';
 import { Picker } from '../../components';
 
@@ -16,7 +16,7 @@ export const Clients = () => {
 	const [result] = useQuery({ query: ClientsQuery });
 	const { data, fetching, error } = result;
 
-	if (fetching) return <p>Loading...</p>;
+	if (fetching) return <></>;
 	if (error)
 		return (
 			<p>
@@ -34,7 +34,7 @@ export const Clients = () => {
 		>
 			<img
 				src={
-					width < 600
+					width < 1000
 						? data.clientsSection.mobileClientCards.url
 						: data.clientsSection.clientCards.url
 				}

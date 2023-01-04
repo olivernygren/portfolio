@@ -12,7 +12,7 @@ export const Hero = () => {
 	const [result] = useQuery({ query: HeroQuery });
 	const { data, fetching, error } = result;
 
-	if (fetching) return <p>Loading...</p>;
+	if (fetching) return <></>;
 	if (error)
 		return (
 			<p>
@@ -21,7 +21,7 @@ export const Hero = () => {
 			</p>
 		);
 
-	if (width < 600) {
+	if (width < 850) {
 		return (
 			<div className="hero-mobile">
 				<motion.img
@@ -67,16 +67,26 @@ export const Hero = () => {
 					alt="Logo"
 					className="header-logo"
 					whileHover={{ transform: `rotate(360deg)` }}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 1, delay: 1 }}
 				/>
-				<div className="text">
+				<motion.div
+					className="text"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 1, delay: 1 }}
+				>
 					<h1>{data.hero.heading}</h1>
 					<p>{data.hero.textBody}</p>
-				</div>
-				{/* <p className="scroll-text">{data.hero.scrollDown}</p> */}
-				<img
+				</motion.div>
+				<motion.img
 					src={data.hero.heroIllustration.url}
 					alt="illustration"
 					className="hero-illustration"
+					initial={{ marginTop: -200, marginRight: -200 }}
+					animate={{ marginTop: 0, marginRight: 0 }}
+					transition={{ duration: 1.5, delay: 0.25 }}
 				/>
 			</div>
 		</div>

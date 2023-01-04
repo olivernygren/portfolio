@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useQuery } from 'urql';
 
 import { AboutQuery } from '../../graphql';
@@ -10,14 +10,8 @@ export const About = () => {
 	const [result] = useQuery({ query: AboutQuery });
 	const { data, fetching, error } = result;
 
-	if (fetching) return <p>Loading...</p>;
-	if (error)
-		return (
-			<p>
-				Error {error.message}
-				{error.stack}
-			</p>
-		);
+	if (fetching) return <></>;
+	if (error) return <p>Error {error.message}</p>;
 
 	return (
 		<motion.div

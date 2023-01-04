@@ -65,11 +65,12 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
   .clients {
     padding: 0 16px;
     flex-direction: column-reverse;
     margin: 100px auto 0 auto;
+    align-items: center;
   }
 
   .testimonial .header {
@@ -83,4 +84,18 @@
   .picker-container {
     margin-top: 50px;
   }
+
+  .client-cards {
+    max-width: unset;
+  }
+
+  .clients .content {
+    max-width: unset;
+  }
+}
+
+@media (max-width: 600px) {
+  .clients {
+    align-items: unset;
+  } 
 }

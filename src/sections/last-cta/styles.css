@@ -38,5 +38,6 @@
 @media (max-width: 600px) {
   .last-cta {
     padding: 0 16px;
+    margin-top: 120px;
   }
 }

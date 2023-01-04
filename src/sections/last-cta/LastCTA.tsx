@@ -9,7 +9,7 @@ export const LastCTA = () => {
 	const [result] = useQuery({ query: LastCTAQuery });
 	const { data, fetching, error } = result;
 
-	if (fetching) return <p>Loading...</p>;
+	if (fetching) return <></>;
 	if (error)
 		return (
 			<p>
