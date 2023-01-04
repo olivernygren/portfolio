@@ -4,3 +4,8 @@ export type SocialMediaLink = {
 		url: string;
 	};
 };
+
+export type SkillCategory = {
+	title: string;
+	skills: string[];
+};

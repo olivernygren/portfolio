@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useQuery } from 'urql';
 
@@ -19,13 +20,18 @@ export const About = () => {
 		);
 
 	return (
-		<div className="about">
+		<motion.div
+			className="about"
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			transition={{ duration: 1 }}
+		>
 			<div className="text">
 				<h2>{data.about.heading}</h2>
 				<p>{data.about.textBody}</p>
 			</div>
 			<img src={data.about.image?.url} alt="Me" className="me-image" />
-		</div>
+		</motion.div>
 	);
 };
 

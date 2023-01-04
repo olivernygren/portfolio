@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import { useQuery } from 'urql';
 
@@ -18,10 +19,15 @@ export const LastCTA = () => {
 		);
 
 	return (
-		<div className="last-cta">
+		<motion.div
+			className="last-cta"
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			transition={{ duration: 1 }}
+		>
 			<h2>{data.lastCta.heading}</h2>
-			<button>{data.lastCta.buttonText}</button>
-		</div>
+			<a href="mailto:oliver.nygren@icloud.com">{data.lastCta.buttonText}</a>
+		</motion.div>
 	);
 };
 

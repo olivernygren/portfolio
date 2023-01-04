@@ -1,12 +1,17 @@
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useQuery } from 'urql';
 import { Picker } from '../../components';
 
 import { ClientsQuery } from '../../graphql';
+import { useWindowDimensions } from '../../hooks';
 import './styles.css';
 
 export const Clients = () => {
 	const [currentTestimonial, setCurrentTestimonial] = useState(0);
+	const { width } = useWindowDimensions();
+
+	// mobileClientCards
 
 	const [result] = useQuery({ query: ClientsQuery });
 	const { data, fetching, error } = result;
@@ -21,9 +26,18 @@ export const Clients = () => {
 		);
 
 	return (
-		<div className="clients">
+		<motion.div
+			className="clients"
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			transition={{ duration: 1 }}
+		>
 			<img
-				src={data.clientsSection.clientCards.url}
+				src={
+					width < 600
+						? data.clientsSection.mobileClientCards.url
+						: data.clientsSection.clientCards.url
+				}
 				alt="clients"
 				className="client-cards"
 			/>
@@ -66,7 +80,7 @@ export const Clients = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

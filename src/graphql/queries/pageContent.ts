@@ -14,6 +14,13 @@ export const HeroQuery = gql`
 				id
 				url
 			}
+			scrollDown
+			arrow {
+				url
+			}
+			mobileIllustration {
+				url
+			}
 		}
 	}
 `;
@@ -31,6 +38,9 @@ export const ClientsQuery = gql`
 			testimonials
 			textBody
 			clientCards {
+				url
+			}
+			mobileClientCards {
 				url
 			}
 		}
@@ -57,6 +67,10 @@ export const SkillsQuery = gql`
 				url
 			}
 			textBody
+			skillCategories {
+				title
+				skills
+			}
 		}
 	}
 `;

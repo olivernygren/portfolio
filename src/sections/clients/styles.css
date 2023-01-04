@@ -24,6 +24,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  transition: 250ms ease-in-out;
 }
 
 .testimonial .header {
@@ -47,4 +48,39 @@
 
 .testimonial .text {
   color: #5C5C5C;
+}
+
+@media (min-width: 1500px) {
+  .clients {
+    margin-top: 150px; 
+    align-items: center; 
+  }
+
+  .client-cards {
+    max-width: 550px;
+  }
+
+  .clients .content {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .clients {
+    padding: 0 16px;
+    flex-direction: column-reverse;
+    margin: 100px auto 0 auto;
+  }
+
+  .testimonial .header {
+    margin-bottom: 25px;
+  }
+
+  .testimonials {
+    margin-bottom: 50px;
+  }
+
+  .picker-container {
+    margin-top: 50px;
+  }
 }

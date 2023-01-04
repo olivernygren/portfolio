@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  /* max-width: 1200px; */
   margin: 120px auto 0 auto;
 }
 
@@ -12,4 +11,33 @@
 
 .about .text {
   max-width: 450px;
+}
+
+@media (min-width: 1500px) {
+  .about {
+    align-items: center;
+  }
+
+  .about .me-image {
+    max-width: 550px;
+  }
+  
+  .about .text {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about {
+    justify-content: unset;
+    align-items: unset;
+    flex-direction: column;
+    padding: 16px;
+    margin: 80px auto 0 auto;
+  }
+
+  .about .me-image {
+    max-width: unset;
+    margin-top: 30px;
+  }
 }

@@ -6,7 +6,7 @@
   margin: 100px auto;
 }
 
-.last-cta button {
+.last-cta a {
   width: fit-content;
   padding: 16px 30px;
   background-color: transparent;
@@ -16,12 +16,27 @@
   border-radius: 50px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
   margin-top: 10px;
+  text-decoration: none;
+  color: #121212;
   transition: 250ms ease-in-out;
 }
 
-.last-cta button:hover {
+.last-cta a:hover {
   background-color: #121212;
   color: white;
+}
+
+@media (min-width: 1500px) {
+  .last-cta {
+    margin-top: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .last-cta {
+    padding: 0 16px;
+  }
 }
