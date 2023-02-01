@@ -279,6 +279,7 @@ function createModal() {
   console.log('src:', scriptSrc);
   const separatedSrc = scriptSrc.split('?');
   const companyIdFromSrc = separatedSrc[1].split('=')[1];
+  console.log(companyIdFromSrc);
 
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
