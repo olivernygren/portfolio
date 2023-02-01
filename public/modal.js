@@ -271,7 +271,7 @@ function createModal() {
 
   const scriptTag = document.getElementsByClassName('jobnet-modal');
   const companyId = scriptTag[0].id;
-  const scriptSrc = scriptTag.src;
+  const scriptSrc = scriptTag[0].src;
   console.log('companyId:', companyId);
   console.log('src:', scriptSrc);
 
