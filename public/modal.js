@@ -269,11 +269,16 @@ function createModal() {
     return;
   }
 
+  // ID metod 1: ge script-tag id som companyId. Ge script-tag ett className och hämta elementet via className. Ta ut id från elementet
   const scriptTag = document.getElementsByClassName('jobnet-modal');
   const companyId = scriptTag[0].id;
   const scriptSrc = scriptTag[0].src;
   console.log('companyId:', companyId);
+
+  // ID metod 2: ge script-tag ett id. getElementById och sen ta src-parametern från elementet. Destrukturera url:en för att få ut companyId
   console.log('src:', scriptSrc);
+  const separatedSrc = scriptSrc.split('?');
+  const companyIdFromSrc = separatedSrc[1].split('=')[1];
 
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
