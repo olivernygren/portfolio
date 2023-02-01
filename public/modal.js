@@ -1,266 +1,85 @@
-// var { graphql, buildSchema } = require('graphql');
-
-// const schema = buildSchema(`
-//   type Query {
-//     companyName: String
-//   }
-// `);
-
-// const rootValue = { companyName: () => 'Company Name' }
-
-// const source = '{ companyName }';
-
-// graphql({ schema, source, rootValue }).then((res) => {
-//   console.log(res);
-// })
-
-const JSONCompany = {
-  "data": {
-    "company": {
-      "documentId": "uqfv4VO0n3dG72fmjUub",
-      "companyName": "Geely Business Center",
-      "companyState": "WAITING_FOR_DOCUMENTATION",
-      "lastUpdated": "2023-01-17T10:10:04.061254Z",
-      "companyAdmins": [
-        {
-          "documentId": "VHoFAoBXq9jg4AXzFXP3"
-        },
-        {
-          "documentId": "ZY7LcSzOJuEBlXN8u8kg"
-        },
-        {
-          "documentId": "cO2FFXdNFMBc01rk5BIe"
-        }
-      ],
-      "tags": {
-        "societalBenefit": {
-          "showInAd": false
-        },
-        "environmentalChoices": {
-          "showInAd": false
-        },
-        "promotesDiversity": {
-          "showInAd": false
-        }
-      },
-      "jobListingDefaultCoverImage": {
-        "accessUrl": ""
-      },
-      "jobListings": [
-        {
-          "documentId": "82GFj8ZH2YqBSSGHRhme",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "Redovisningsekonom inom fastighet till internationellt storbolag"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "Accountant within property to big international company"
-              }
-            ]
-          },
-          "urlSlug": "redovisningsekonom-fastighet-geely",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/MK_LWl2Vip__Iwc6QX_v3g.uni3-89.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "EMvQSi9lr8AvFmIHqylm",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "Endpoint Specialist till ledande bolag inom fordonsindustrin"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "Endpoint Specialist to international company in the automotive industry"
-              }
-            ]
-          },
-          "urlSlug": "endpoint-specialist-geely-business-center",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/3rUdSVen-YliYDrkuoFusQ.uni3-36.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "b5JiqnW9ctm4QpUFTvmh",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "Tax Manager till internationellt storbolag"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "Tax Manager to international company"
-              }
-            ]
-          },
-          "urlSlug": "tax-manager-geely-business-center",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/HVzLExrxFNyj9SmlQIgy7A.064a3960.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "l06Ha9b2VpTwz7D8zGBQ",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "IT Network Specialist"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "IT Network Specialist to international company"
-              }
-            ]
-          },
-          "urlSlug": "it-network-specialist-gelly",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/N64XZLfz2bFs0UTtvpFV6A.o22.0520--1326.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "l0bcCCmqHiujyiPHFsCP",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "VDI Product Owner till internationellt storbolag"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "VDI Product Owner to big international company"
-              }
-            ]
-          },
-          "urlSlug": "vdi-product-owner-geely",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/jbECGuOV1zSwRy7mB4-KwQ.o22.0520--1412.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "rYwHHHEY3KxM6fxFYlAK",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "IT Datacenter Specialist till internationellt storbolag"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "IT Datacenter Specialist to international company"
-              }
-            ]
-          },
-          "urlSlug": "it-datacenter-specialist-geely",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/u55u4mJ8jRHEK9qkM9uRyQ.o22.0520--1708.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "tcdSHPUHT3SH1rP3d70a",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "Senior redovisningsekonom till internationellt storbolag"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "Senior accountant to big international company"
-              }
-            ]
-          },
-          "urlSlug": "senior-redovisningsekonom-geely",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/ZsKI1-PTFaW1xYAM9JqnOw.uni3-21.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        },
-        {
-          "documentId": "ued5AY8AH09E4ydYh8Nw",
-          "titleV2": {
-            "entries": [
-              {
-                "iso6391Code": "sv",
-                "text": "Redovisningsekonom Team Lead"
-              },
-              {
-                "iso6391Code": "en",
-                "text": "Accountant Team Lead to big international company"
-              }
-            ]
-          },
-          "urlSlug": "redovisningsekonom-team-lead-geely",
-          "coverImage": {
-            "accessUrl": "https://storage.googleapis.com/jobnet-se-uploads-stable-glass-326613/uwisVqiHXtUmrru5Qn0E1g.uni3-74.jpg"
-          },
-          "languageCodes": [
-            "en",
-            "sv"
-          ],
-          "type": "CONTINUOUS"
-        }
-      ]
-    }
-  }
-}
-
-const jobListings = JSONCompany.data.company.jobListings;
-
 const isMobile = window.innerWidth < 767;
+let jobListings = [];
+
+!function () {
+  start();
+}();
 
 var JobnetModal = {
-  open: () => createModal()
+  open: () => showModal()
 };
+
+async function start() {
+  renderModal();
+  await fetchJobListings();
+  renderJobListings();
+}
+
+function renderJobListings() {
+  const modalBody = document.getElementById('_jobnet-joblistings-modal');
+  modalBody.appendChild(RoleCardsContainer());
+}
+
+function renderModal() {
+  const modalContainer = document.createElement('div');
+  modalContainer.id = '_jobnet-joblistings-modal-container'
+  const mc = modalContainer.style;
+  mc.position = 'fixed';
+  mc.display = 'flex';
+  mc.zIndex = 1000;
+  mc.inset = 0;
+  mc.backgroundColor = 'rgba(48, 50, 56, 0.5)';
+  mc.justifyContent = 'center';
+  mc.alignItems = 'center;'
+  mc.opacity = 0;
+  mc.pointerEvents = 'none';
+
+  const modal = document.createElement('div');
+  const m = modal.style;
+  modal.id = '_jobnet-joblistings-modal';
+  m.backgroundColor = '#F7FAFC';
+  m.display = 'flex';
+  m.width = isMobile ? '100%' : '620px';
+  m.height = 'auto';
+  m.maxHeight = isMobile ? '95vh' : '85vh';
+  m.minHeight = isMobile ? '95vh' : '85vh';
+  m.margin = isMobile ? 'auto 0 0 0' : 'auto';
+  m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
+  m.flexDirection = 'column';
+  m.boxSizing = 'border-box';
+  m.alignSelf = isMobile && 'flex-end';
+
+  modalContainer.appendChild(modal);
+
+  modal.appendChild(ModalHeader());
+
+  open(modalContainer);
+}
+
+function showModal() {
+  window.document.body.style.overflow = 'hidden';
+
+  const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
+  const mc = modalContainer.style;
+  mc.opacity = 1;
+  mc.pointerEvents = 'unset';
+}
+
+// showModal
+// fetchJobListings
+// renderJobListings
 
 function open(modal) {
   document.body.appendChild(modal);
-  window.document.body.style.overflow = 'hidden';
+  // window.document.body.style.overflow = 'hidden';
 };
 
 function close() {
-  console.log(isMobile);
   const modal = document.getElementById('_jobnet-joblistings-modal-container');
-  document.body.removeChild(modal);
+  const m = modal.style;
+  m.opacity = 0;
+  m.pointerEvents = 'none';
+  // document.body.removeChild(modal);
   document.body.style.overflow = 'initial';
 };
 
@@ -270,48 +89,53 @@ function createModal() {
   }
 
   // ID metod 1: ge script-tag id som companyId. Ge script-tag ett className och hämta elementet via className. Ta ut id från elementet
-  const scriptTag = document.getElementsByClassName('jobnet-modal');
-  const companyId = scriptTag[0].id;
-  const scriptSrc = scriptTag[0].src;
-  console.log('companyId:', companyId);
+  // const scriptTag = document.getElementsByClassName('jobnet-modal');
+  // const companyId = scriptTag[0].id;
+  // const scriptSrc = scriptTag[0].src;
+  // console.log('companyId:', companyId);
+
 
   // ID metod 2: ge script-tag ett id. getElementById och sen ta src-parametern från elementet. Destrukturera url:en för att få ut companyId
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
   console.log('src:', scriptSrc);
-  const separatedSrc = scriptSrc.split('?');
-  const companyIdFromSrc = separatedSrc[1].split('=')[1];
-  console.log(companyIdFromSrc);
+  // WHEN USING EXTERNAL SCRIPT:
+  // const separatedSrc = scriptSrc.split('?');
+  // const companyIdFromSrc = separatedSrc[1].split('=')[1];
+  // console.log(companyIdFromSrc);
 
-  const modalContainer = document.createElement('div');
-  modalContainer.id = '_jobnet-joblistings-modal-container'
-  const mb = modalContainer.style;
-  mb.position = 'fixed';
-  mb.display = 'flex';
-  mb.zIndex = 1000;
-  mb.inset = 0;
-  mb.backgroundColor = 'rgba(48, 50, 56, 0.5)';
-  mb.justifyContent = 'center';
-  mb.alignItems = 'center;'
+  // fetchJobListings("uqfv4VO0n3dG72fmjUub");
 
-  const Modal = document.createElement('div');
-  const m = Modal.style;
-  Modal.id = '_jobnet-joblistings-modal';
-  m.backgroundColor = '#F7FAFC';
-  m.display = 'flex';
-  m.width = isMobile ? '100%' : '620px';
-  m.height = 'auto';
-  m.maxHeight = isMobile ? '95vh' : '85vh';
-  m.margin = isMobile ? 'auto 0 0 0' : 'auto';
-  m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
-  m.flexDirection = 'column';
-  m.boxSizing = 'border-box';
-  m.alignSelf = isMobile && 'flex-end';
+  // const modalContainer = document.createElement('div');
+  // modalContainer.id = '_jobnet-joblistings-modal-container'
+  // const mb = modalContainer.style;
+  // mb.position = 'fixed';
+  // mb.display = 'flex';
+  // mb.zIndex = 1000;
+  // mb.inset = 0;
+  // mb.backgroundColor = 'rgba(48, 50, 56, 0.5)';
+  // mb.justifyContent = 'center';
+  // mb.alignItems = 'center;'
 
-  modalContainer.appendChild(Modal);
+  // const modal = document.createElement('div');
+  // const m = modal.style;
+  // modal.id = '_jobnet-joblistings-modal';
+  // m.backgroundColor = '#F7FAFC';
+  // m.display = 'flex';
+  // m.width = isMobile ? '100%' : '620px';
+  // m.height = 'auto';
+  // m.maxHeight = isMobile ? '95vh' : '85vh';
+  // m.margin = isMobile ? 'auto 0 0 0' : 'auto';
+  // m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
+  // m.flexDirection = 'column';
+  // m.boxSizing = 'border-box';
+  // m.alignSelf = isMobile && 'flex-end';
 
-  Modal.appendChild(ModalHeader());
-  Modal.appendChild(RoleCardsContainer());
+  // modalContainer.appendChild(modal);
 
-  open(modalContainer);
+  // modal.appendChild(ModalHeader());
+  // modal.appendChild(RoleCardsContainer());
+
+  // open(modalContainer);
 }
 
 function CloseModalButton() {
@@ -373,9 +197,13 @@ function RoleCardsContainer() {
   c.paddingRight = !isMobile && '8px';
   c.maxHeight = isMobile && '400px';
 
-  jobListings.map((jobListing) => {
-    container.appendChild(ModalRoleCard(jobListing));
-  })
+  if (jobListings.length) {
+    jobListings.map((jobListing) => {
+      container.appendChild(ModalRoleCard(jobListing));
+    })
+  } else {
+    container.appendChild(document.createElement('span').textContent = 'Just nu finns inga lediga tjänster')
+  }
 
   return container;
 }
@@ -479,4 +307,77 @@ function ModalRoleCard(jobListing) {
   roleCard.appendChild(RoleCardContent());
 
   return roleCard;
+}
+
+function getCompanyIdFromSrcUrl() {
+  // ID metod 2: ge script-tag ett id. getElementById och sen ta src-parametern från elementet. Destrukturera url:en för att få ut companyId
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+  // console.log('src:', scriptSrc);
+  // WHEN USING EXTERNAL SCRIPT:
+  const separatedSrc = scriptSrc.split('?');
+  const companyIdFromSrc = separatedSrc[1].split('=')[1];
+  console.log(companyIdFromSrc);
+
+  return companyIdFromSrc;
+}
+
+async function fetchJobListings() {
+  const companyId = getCompanyIdFromSrcUrl();
+
+  await fetch('https://api-dev-dot-stable-glass-326613.ew.r.appspot.com/api/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: `
+        query CompanyJobListings($companyId: String!) {
+          company(id: $companyId) {
+            documentId
+            companyName
+            lastUpdated
+            tags {
+              societalBenefit {
+                showInAd
+              }
+              environmentalChoices {
+                showInAd
+              }
+              promotesDiversity {
+                showInAd
+              }
+            }
+            jobListingDefaultCoverImage {
+              accessUrl
+            }
+            jobListings {
+              documentId
+              titleV2 {
+                entries {
+                  iso6391Code
+                  text
+                }
+              }
+              urlSlug
+              coverImage {
+                accessUrl
+              }
+              languageCodes
+              type
+            }
+          }
+        }
+      `,
+      variables: {
+        companyId
+        // companyId: "uqfv4VO0n3dG72fmjUub"
+      }
+    })
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result);
+      jobListings = result.data.company.jobListings
+      // createModal();
+    })
 }
