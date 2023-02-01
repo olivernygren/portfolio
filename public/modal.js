@@ -270,7 +270,7 @@ function createModal() {
     return;
   }
   
-  console.log(location.pathname);
+  console.log(location);
 
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
