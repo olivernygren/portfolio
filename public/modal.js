@@ -269,6 +269,8 @@ function createModal() {
   if (document.getElementById('_jobnet-joblistings-modal-container')) {
     return;
   }
+  
+  console.log(location.pathname);
 
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
