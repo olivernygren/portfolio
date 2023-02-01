@@ -264,13 +264,16 @@ function close() {
   document.body.style.overflow = 'initial';
 };
 
-
 function createModal() {
   if (document.getElementById('_jobnet-joblistings-modal-container')) {
     return;
   }
-  
-  console.log(location);
+
+  const scriptTag = document.getElementsByClassName('jobnet-modal');
+  const companyId = scriptTag[0].id;
+  const scriptSrc = scriptTag.src;
+  console.log('companyId:', companyId);
+  console.log('src:', scriptSrc);
 
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
