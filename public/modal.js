@@ -2,31 +2,26 @@ const isMobile = window.innerWidth < 767;
 let jobListings = [];
 
 !function () {
-  start();
+  generateModal();
 }();
 
 var JobnetModal = {
   open: () => showModal()
 };
 
-async function start() {
-  renderModal();
+async function generateModal() {
+  renderModalInDOM();
   await fetchJobListings();
   renderJobListings();
 }
 
-function renderJobListings() {
-  const modalBody = document.getElementById('_jobnet-joblistings-modal');
-  modalBody.appendChild(RoleCardsContainer());
-}
-
-function renderModal() {
+function renderModalInDOM() {
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container'
   const mc = modalContainer.style;
   mc.position = 'fixed';
   mc.display = 'flex';
-  mc.zIndex = 1000;
+  mc.zIndex = 10000000;
   mc.inset = 0;
   mc.backgroundColor = 'rgba(48, 50, 56, 0.5)';
   mc.justifyContent = 'center';
@@ -42,7 +37,7 @@ function renderModal() {
   m.width = isMobile ? '100%' : '620px';
   m.height = 'auto';
   m.maxHeight = isMobile ? '95vh' : '85vh';
-  m.minHeight = isMobile ? '95vh' : '85vh';
+  // m.minHeight = isMobile ? '95vh' : '85vh'; // ANNAN LÖSNING HÄR?
   m.margin = isMobile ? 'auto 0 0 0' : 'auto';
   m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
   m.flexDirection = 'column';
@@ -50,127 +45,172 @@ function renderModal() {
   m.alignSelf = isMobile && 'flex-end';
 
   modalContainer.appendChild(modal);
-
   modal.appendChild(ModalHeader());
 
-  open(modalContainer);
+  document.body.appendChild(modalContainer);
+}
+
+async function fetchJobListings() {
+  const companyId = getCompanyIdFromSrcUrl();
+
+  await fetch('https://api-dev-dot-stable-glass-326613.ew.r.appspot.com/api/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: `
+        query CompanyJobListings($companyId: String!) {
+          company(id: $companyId) {
+            documentId
+            companyName
+            jobListingDefaultCoverImage {
+              accessUrl
+            }
+            jobListings {
+              documentId
+              titleV2 {
+                entries {
+                  iso6391Code
+                  text
+                }
+              }
+              urlSlug
+              coverImage {
+                accessUrl
+              }
+              type
+            }
+          }
+        }
+      `,
+      variables: {
+        companyId
+      }
+    })
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result);
+      if (result.data.company.jobListings.length) {
+        jobListings = result.data.company.jobListings;
+      } else {
+        jobListings = [];
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      jobListings = [];
+    })
+}
+
+function renderJobListings() {
+  const modalBody = document.getElementById('_jobnet-joblistings-modal');
+  modalBody.appendChild(RoleCardsContainer());
 }
 
 function showModal() {
-  window.document.body.style.overflow = 'hidden';
-
+  setBodyScroll('disabled');
   const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
   const mc = modalContainer.style;
   mc.opacity = 1;
   mc.pointerEvents = 'unset';
-}
-
-// showModal
-// fetchJobListings
-// renderJobListings
-
-function open(modal) {
-  document.body.appendChild(modal);
-  // window.document.body.style.overflow = 'hidden';
 };
 
-function close() {
+function closeModal() {
   const modal = document.getElementById('_jobnet-joblistings-modal-container');
   const m = modal.style;
   m.opacity = 0;
   m.pointerEvents = 'none';
-  // document.body.removeChild(modal);
-  document.body.style.overflow = 'initial';
+  setBodyScroll('enabled');
 };
 
-function createModal() {
-  if (document.getElementById('_jobnet-joblistings-modal-container')) {
-    return;
+function setBodyScroll(set) {
+  if (set === 'enabled') {
+    window.document.body.style.overflow = 'initial';
+  } else if (set === 'disabled') {
+    window.document.body.style.overflow = 'hidden';
+  }
+  return;
+}
+
+function extractQueryVariablesFromSrc(scriptSrc) {
+  const separatedPathAndQueryVars = scriptSrc.split('?');
+  const queryVariables = separatedPathAndQueryVars[1];
+  const separatedUrlQueryVariables = queryVariables.split('&');
+
+  const companyIdUrlVariable = separatedUrlQueryVariables.find(srcString => srcString.includes('companyId='));
+  const languageUrlVariable = separatedUrlQueryVariables.find(srcString => srcString.includes('lang='));
+
+  const companyId = companyIdUrlVariable.split('=')[1];
+  const language = languageUrlVariable.split('=')[1];
+
+  return { companyId, language };
+}
+
+function getCompanyIdFromSrcUrl() {
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+
+  if (scriptSrc.includes('?')) { // a "?" in the url indicates that query variables are present
+    const { companyId } = extractQueryVariablesFromSrc(scriptSrc);
+    return companyId;
+  } else {
+    // return 'uqfv4VO0n3dG72fmjUubmsms';
+    return 'uqfv4VO0n3dG72fmjUub';
+  }
+}
+
+function sortRolesByType(jobListings) {
+  const dormantJobListings = jobListings.filter(jobListing => jobListing.type === 'DORMANT');
+  const otherJobListings = jobListings.filter(jobListing => jobListing.type !== 'DORMANT');
+
+  let sortedJobListings;
+
+  if (dormantJobListings) {
+    sortedJobListings = otherJobListings.concat(dormantJobListings)
+  } else {
+    sortedJobListings = otherJobListings;
   }
 
-  // ID metod 1: ge script-tag id som companyId. Ge script-tag ett className och hämta elementet via className. Ta ut id från elementet
-  // const scriptTag = document.getElementsByClassName('jobnet-modal');
-  // const companyId = scriptTag[0].id;
-  // const scriptSrc = scriptTag[0].src;
-  // console.log('companyId:', companyId);
-
-
-  // ID metod 2: ge script-tag ett id. getElementById och sen ta src-parametern från elementet. Destrukturera url:en för att få ut companyId
-  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
-  console.log('src:', scriptSrc);
-  // WHEN USING EXTERNAL SCRIPT:
-  // const separatedSrc = scriptSrc.split('?');
-  // const companyIdFromSrc = separatedSrc[1].split('=')[1];
-  // console.log(companyIdFromSrc);
-
-  // fetchJobListings("uqfv4VO0n3dG72fmjUub");
-
-  // const modalContainer = document.createElement('div');
-  // modalContainer.id = '_jobnet-joblistings-modal-container'
-  // const mb = modalContainer.style;
-  // mb.position = 'fixed';
-  // mb.display = 'flex';
-  // mb.zIndex = 1000;
-  // mb.inset = 0;
-  // mb.backgroundColor = 'rgba(48, 50, 56, 0.5)';
-  // mb.justifyContent = 'center';
-  // mb.alignItems = 'center;'
-
-  // const modal = document.createElement('div');
-  // const m = modal.style;
-  // modal.id = '_jobnet-joblistings-modal';
-  // m.backgroundColor = '#F7FAFC';
-  // m.display = 'flex';
-  // m.width = isMobile ? '100%' : '620px';
-  // m.height = 'auto';
-  // m.maxHeight = isMobile ? '95vh' : '85vh';
-  // m.margin = isMobile ? 'auto 0 0 0' : 'auto';
-  // m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
-  // m.flexDirection = 'column';
-  // m.boxSizing = 'border-box';
-  // m.alignSelf = isMobile && 'flex-end';
-
-  // modalContainer.appendChild(modal);
-
-  // modal.appendChild(ModalHeader());
-  // modal.appendChild(RoleCardsContainer());
-
-  // open(modalContainer);
-}
-
-function CloseModalButton() {
-  const closeButton = document.createElement('button');
-
-  const cb = closeButton.style;
-  cb.border = 'none';
-  cb.borderRadius = '50%';
-  cb.backgroundColor = 'transparent';
-  cb.cursor = 'pointer';
-  cb.display = 'flex';
-  cb.alignItems = 'center';
-
-  const xIcon = document.createElement('img');
-  xIcon.src = "icons/24/X.svg";
-
-  closeButton.appendChild(xIcon);
-  closeButton.onclick = () => close();
-
-  return closeButton;
-}
-
-function Title() {
-  const modalText = document.createElement('h4');
-  modalText.textContent = 'Se våra lediga jobb på Jobnet.se';
-  const mt = modalText.style;
-  mt.color = '#303238';
-  mt.fontSize = '18px';
-  mt.lineHeight = '135%';
-  mt.fontWeight = 700;
-
-  return modalText;
+  return sortedJobListings;
 }
 
 function ModalHeader() {
+  function CloseModalButton() {
+    const closeButton = document.createElement('button');
+
+    const cb = closeButton.style;
+    cb.border = 'none';
+    cb.borderRadius = '50%';
+    cb.backgroundColor = 'transparent';
+    cb.cursor = 'pointer';
+    cb.display = 'flex';
+    cb.alignItems = 'center';
+
+    const xIcon = document.createElement('img');
+    xIcon.src = "icons/24/X.svg";
+
+    closeButton.appendChild(xIcon);
+    closeButton.onclick = () => closeModal();
+
+    return closeButton;
+  }
+
+  function ModalTitle() {
+    const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+    const { language } = extractQueryVariablesFromSrc(scriptSrc);
+
+    const modalText = document.createElement('h4');
+    modalText.textContent = language === 'sv' ? 'Se våra lediga jobb på Jobnet.se' : 'View all our available positions at Jobnet.se';
+    const mt = modalText.style;
+    mt.color = '#303238';
+    mt.fontSize = '18px';
+    mt.lineHeight = '135%';
+    mt.fontWeight = 700;
+
+    return modalText;
+  }
+
   const modalHeader = document.createElement('div');
   const mh = modalHeader.style;
   mh.display = 'flex';
@@ -179,13 +219,16 @@ function ModalHeader() {
   mh.marginTop = isMobile ? '5px' : '20px';
   mh.padding = isMobile ? '0 24px' : '0 40px';
 
-  modalHeader.appendChild(Title());
+  modalHeader.appendChild(ModalTitle());
   modalHeader.appendChild(CloseModalButton());
 
   return modalHeader;
 }
 
 function RoleCardsContainer() {
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+  const { language } = extractQueryVariablesFromSrc(scriptSrc);
+
   const container = document.createElement('div');
   const c = container.style;
   c.display = isMobile ? 'grid' : 'flex';
@@ -198,14 +241,38 @@ function RoleCardsContainer() {
   c.maxHeight = isMobile && '400px';
 
   if (jobListings.length) {
-    jobListings.map((jobListing) => {
+    const sortedJobListings = sortRolesByType(jobListings);
+    sortedJobListings.map((jobListing) => {
       container.appendChild(ModalRoleCard(jobListing));
     })
   } else {
-    container.appendChild(document.createElement('span').textContent = 'Just nu finns inga lediga tjänster')
+    const emptyText = document.createElement('span');
+    emptyText.textContent = language === 'sv' ? 'Just nu finns inga lediga tjänster' : 'No available positions at this moment in time';
+    const et = emptyText.style;
+    et.color = '#586D79';
+    container.appendChild(emptyText);
   }
 
   return container;
+}
+
+function getJobListingTypeText(type) {
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+  const { language } = extractQueryVariablesFromSrc(scriptSrc);
+
+  if (type === 'DORMANT') {
+    if (language === 'sv') {
+      return 'Vilade intresse';
+    } else {
+      return 'Future interest';
+    }
+  } else {
+    if (language === 'sv') {
+      return 'Prioriterad ansökan';
+    } else {
+      return 'Prioritized application';
+    }
+  }
 }
 
 function ModalRoleCard(jobListing) {
@@ -233,6 +300,8 @@ function ModalRoleCard(jobListing) {
       title.textContent = jobListing.titleV2.entries[0].text;
       const t = title.style;
       t.color = '#303238';
+      t.fontSize = 400;
+      t.fontSize = '16px';
 
       titleContainer.appendChild(title);
 
@@ -247,9 +316,9 @@ function ModalRoleCard(jobListing) {
       t.marginBottom = '8px';
 
       const typeText = document.createElement('span');
-      typeText.textContent = jobListing.type === 'DORMANT' ? 'Vilade intresse' : 'Prioriterad ansökan';
+      typeText.textContent = getJobListingTypeText(jobListing.type);
       const tt = typeText.style;
-      tt.color = '#586d79';
+      tt.color = '#586D79';
       tt.fontSize = '14px';
       tt.lineHeight = '135%';
       tt.fontWeight = 400;
@@ -295,7 +364,7 @@ function ModalRoleCard(jobListing) {
 
   const roleCard = document.createElement('div');
   const rc = roleCard.style;
-  rc.backgroundColor = 'white'
+  rc.backgroundColor = 'white';
   rc.display = 'flex';
   rc.marginBottom = '3px';
   rc.boxShadow = 'rgb(0 0 0 / 6%) 0px 3px 0px';
@@ -307,77 +376,4 @@ function ModalRoleCard(jobListing) {
   roleCard.appendChild(RoleCardContent());
 
   return roleCard;
-}
-
-function getCompanyIdFromSrcUrl() {
-  // ID metod 2: ge script-tag ett id. getElementById och sen ta src-parametern från elementet. Destrukturera url:en för att få ut companyId
-  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
-  // console.log('src:', scriptSrc);
-  // WHEN USING EXTERNAL SCRIPT:
-  const separatedSrc = scriptSrc.split('?');
-  const companyIdFromSrc = separatedSrc[1].split('=')[1];
-  console.log(companyIdFromSrc);
-
-  return companyIdFromSrc;
-}
-
-async function fetchJobListings() {
-  const companyId = getCompanyIdFromSrcUrl();
-
-  await fetch('https://api-dev-dot-stable-glass-326613.ew.r.appspot.com/api/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      query: `
-        query CompanyJobListings($companyId: String!) {
-          company(id: $companyId) {
-            documentId
-            companyName
-            lastUpdated
-            tags {
-              societalBenefit {
-                showInAd
-              }
-              environmentalChoices {
-                showInAd
-              }
-              promotesDiversity {
-                showInAd
-              }
-            }
-            jobListingDefaultCoverImage {
-              accessUrl
-            }
-            jobListings {
-              documentId
-              titleV2 {
-                entries {
-                  iso6391Code
-                  text
-                }
-              }
-              urlSlug
-              coverImage {
-                accessUrl
-              }
-              languageCodes
-              type
-            }
-          }
-        }
-      `,
-      variables: {
-        companyId
-        // companyId: "uqfv4VO0n3dG72fmjUub"
-      }
-    })
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      console.log(result);
-      jobListings = result.data.company.jobListings
-      // createModal();
-    })
 }
