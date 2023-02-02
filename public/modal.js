@@ -1,4 +1,4 @@
-const isMobile = window.innerWidth < 767;
+const isSmallScreen = window.innerWidth < 767;
 let jobListings = [];
 
 !function () {
@@ -34,15 +34,14 @@ function renderModalInDOM() {
   modal.id = '_jobnet-joblistings-modal';
   m.backgroundColor = '#F7FAFC';
   m.display = 'flex';
-  m.width = isMobile ? '100%' : '620px';
+  m.width = isSmallScreen ? '100%' : '620px';
   m.height = 'auto';
-  m.maxHeight = isMobile ? '95vh' : '85vh';
-  // m.minHeight = isMobile ? '95vh' : '85vh'; // ANNAN LÖSNING HÄR?
-  m.margin = isMobile ? 'auto 0 0 0' : 'auto';
-  m.borderRadius = isMobile ? '24px 24px 0px 0px' : '12px';
+  m.maxHeight = isSmallScreen ? '95vh' : '85vh';
+  m.margin = isSmallScreen ? 'auto 0 0 0' : 'auto';
+  m.borderRadius = isSmallScreen ? '24px 24px 0px 0px' : '12px';
   m.flexDirection = 'column';
   m.boxSizing = 'border-box';
-  m.alignSelf = isMobile && 'flex-end';
+  m.alignSelf = isSmallScreen && 'flex-end';
 
   modalContainer.appendChild(modal);
   modal.appendChild(ModalHeader());
@@ -155,7 +154,6 @@ function getCompanyIdFromSrcUrl() {
     const { companyId } = extractQueryVariablesFromSrc(scriptSrc);
     return companyId;
   } else {
-    // return 'uqfv4VO0n3dG72fmjUubmsms';
     return 'uqfv4VO0n3dG72fmjUub';
   }
 }
@@ -173,6 +171,28 @@ function sortRolesByType(jobListings) {
   }
 
   return sortedJobListings;
+}
+
+function getTranslation(text) {
+  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
+  const { language } = extractQueryVariablesFromSrc(scriptSrc);
+
+  switch (text) {
+    case 'title':
+      if (language === 'sv') return 'Se våra lediga jobb på Jobnet.se';
+      if (language === 'en') return 'View all our available positions at Jobnet.se';
+    case 'no-jobs':
+      if (language === 'sv') return 'Just nu har vi inga lediga tjänster';
+      if (language === 'en') return 'No available positions at this moment in time';
+    case 'dormant':
+      if (language === 'sv') return 'Vilade intresse';
+      if (language === 'en') return 'Future interest';
+    case 'prioritized':
+      if (language === 'sv') return 'Prioriterad ansökan';
+      if (language === 'en') return 'Prioritized application';
+    default:
+      return '';
+  }
 }
 
 function ModalHeader() {
@@ -197,11 +217,8 @@ function ModalHeader() {
   }
 
   function ModalTitle() {
-    const scriptSrc = document.getElementById('_jobnet-modal-script').src;
-    const { language } = extractQueryVariablesFromSrc(scriptSrc);
-
     const modalText = document.createElement('h4');
-    modalText.textContent = language === 'sv' ? 'Se våra lediga jobb på Jobnet.se' : 'View all our available positions at Jobnet.se';
+    modalText.textContent = getTranslation('title');
     const mt = modalText.style;
     mt.color = '#303238';
     mt.fontSize = '18px';
@@ -216,8 +233,8 @@ function ModalHeader() {
   mh.display = 'flex';
   mh.alignItems = 'center';
   mh.justifyContent = 'space-between';
-  mh.marginTop = isMobile ? '5px' : '20px';
-  mh.padding = isMobile ? '0 24px' : '0 40px';
+  mh.marginTop = isSmallScreen ? '5px' : '20px';
+  mh.padding = isSmallScreen ? '0 24px' : '0 40px';
 
   modalHeader.appendChild(ModalTitle());
   modalHeader.appendChild(CloseModalButton());
@@ -226,19 +243,16 @@ function ModalHeader() {
 }
 
 function RoleCardsContainer() {
-  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
-  const { language } = extractQueryVariablesFromSrc(scriptSrc);
-
   const container = document.createElement('div');
   const c = container.style;
-  c.display = isMobile ? 'grid' : 'flex';
+  c.display = isSmallScreen ? 'grid' : 'flex';
   c.gridTemplateColumns = '100%'
   c.flexDirection = 'column';
   c.gap = '9px';
-  c.overflowY = isMobile ? 'auto' : 'scroll';
-  c.margin = isMobile ? '0 24px 12px 24px' : '0 40px 40px 40px';
-  c.paddingRight = !isMobile && '8px';
-  c.maxHeight = isMobile && '400px';
+  c.overflowY = isSmallScreen ? 'auto' : 'scroll';
+  c.margin = isSmallScreen ? '0 24px 12px 24px' : '0 40px 40px 40px';
+  c.paddingRight = !isSmallScreen && '8px';
+  c.maxHeight = isSmallScreen && '400px';
 
   if (jobListings.length) {
     const sortedJobListings = sortRolesByType(jobListings);
@@ -247,7 +261,7 @@ function RoleCardsContainer() {
     })
   } else {
     const emptyText = document.createElement('span');
-    emptyText.textContent = language === 'sv' ? 'Just nu finns inga lediga tjänster' : 'No available positions at this moment in time';
+    emptyText.textContent = getTranslation('no-jobs');
     const et = emptyText.style;
     et.color = '#586D79';
     container.appendChild(emptyText);
@@ -257,21 +271,10 @@ function RoleCardsContainer() {
 }
 
 function getJobListingTypeText(type) {
-  const scriptSrc = document.getElementById('_jobnet-modal-script').src;
-  const { language } = extractQueryVariablesFromSrc(scriptSrc);
-
   if (type === 'DORMANT') {
-    if (language === 'sv') {
-      return 'Vilade intresse';
-    } else {
-      return 'Future interest';
-    }
+    return getTranslation('dormant');
   } else {
-    if (language === 'sv') {
-      return 'Prioriterad ansökan';
-    } else {
-      return 'Prioritized application';
-    }
+    return getTranslation('prioritized');
   }
 }
 
@@ -370,9 +373,9 @@ function ModalRoleCard(jobListing) {
   rc.boxShadow = 'rgb(0 0 0 / 6%) 0px 3px 0px';
   rc.borderRadius = '12px';
   rc.overflow = 'hidden';
-  rc.minHeight = isMobile ? 'unset' : '115px';
+  rc.minHeight = isSmallScreen ? 'unset' : '115px';
 
-  !isMobile && roleCard.appendChild(RoleCardImage());
+  !isSmallScreen && roleCard.appendChild(RoleCardImage());
   roleCard.appendChild(RoleCardContent());
 
   return roleCard;
