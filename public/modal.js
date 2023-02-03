@@ -17,31 +17,33 @@ async function generateModal() {
 
 function renderModalInDOM() {
   const modalContainer = document.createElement('div');
-  modalContainer.id = '_jobnet-joblistings-modal-container'
-  const mc = modalContainer.style;
-  mc.position = 'fixed';
-  mc.display = 'flex';
-  mc.zIndex = 10000000;
-  mc.inset = 0;
-  mc.backgroundColor = 'rgba(48, 50, 56, 0.5)';
-  mc.justifyContent = 'center';
-  mc.alignItems = 'center;'
-  mc.opacity = 0;
-  mc.pointerEvents = 'none';
+  modalContainer.id = '_jobnet-joblistings-modal-container';
+  setStyling(modalContainer, `
+    position: fixed;
+    display: flex;
+    z-index: 10000000;
+    inset: 0;
+    background-color: rgba(48, 50, 56, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+  `);
 
   const modal = document.createElement('div');
-  const m = modal.style;
   modal.id = '_jobnet-joblistings-modal';
-  m.backgroundColor = '#F7FAFC';
-  m.display = 'flex';
-  m.width = isSmallScreen ? '100%' : '620px';
-  m.height = 'auto';
-  m.maxHeight = isSmallScreen ? '95vh' : '85vh';
-  m.margin = isSmallScreen ? 'auto 0 0 0' : 'auto';
-  m.borderRadius = isSmallScreen ? '24px 24px 0px 0px' : '12px';
-  m.flexDirection = 'column';
-  m.boxSizing = 'border-box';
-  m.alignSelf = isSmallScreen && 'flex-end';
+  setStyling(modal, `
+    background-color: #F7FAFC;
+    display: flex;
+    width: ${isSmallScreen ? '100%' : '620px'};
+    height: auto;
+    max-height: ${isSmallScreen ? '95vh' : '85vh'};
+    margin: ${isSmallScreen ? 'auto 0 0 0' : 'auto'};
+    border-radius: ${isSmallScreen ? '24px 24px 0px 0px' : '12px'};
+    flex-direction: column;
+    box-sizing: border-box;
+    align-self: ${isSmallScreen && 'flex-end'};
+  `)
 
   modalContainer.appendChild(modal);
   modal.appendChild(ModalHeader());
@@ -109,40 +111,49 @@ function renderJobListings() {
 }
 
 function showModal() {
-  setBodyScroll('disabled');
+  setPageScroll('disabled');
   const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
-  const mc = modalContainer.style;
-  mc.opacity = 1;
-  mc.pointerEvents = 'unset';
+  setStyling(modalContainer, `
+    opacity: 1;
+    pointer-events: unset;
+    position: fixed;
+    display: flex;
+    z-index: 10000000;
+    inset: 0;
+    background-color: rgba(48, 50, 56, 0.5);
+    justify-content: center;
+    align-items: center;
+  `)
 };
 
 function closeModal() {
-  const modal = document.getElementById('_jobnet-joblistings-modal-container');
-  const m = modal.style;
-  m.opacity = 0;
-  m.pointerEvents = 'none';
-  setBodyScroll('enabled');
+  const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
+  setStyling(modalContainer, `
+    opacity: 0;
+    pointer-events: none;
+  `)
+  setPageScroll('enabled');
 };
 
-function setBodyScroll(set) {
+function setPageScroll(set) {
   if (set === 'enabled') {
     window.document.body.style.overflow = 'initial';
   } else if (set === 'disabled') {
     window.document.body.style.overflow = 'hidden';
   }
   return;
-}
+};
 
 function extractQueryVariablesFromSrc(scriptSrc) {
-  const separatedPathAndQueryVars = scriptSrc.split('?');
-  const queryVariables = separatedPathAndQueryVars[1];
-  const separatedUrlQueryVariables = queryVariables.split('&');
+  const separatedPathAndQueryVariables = scriptSrc.split('?');
+  const queryVariables = separatedPathAndQueryVariables[1];
+  const separatedQueryVariables = queryVariables?.split('&');
 
-  const companyIdUrlVariable = separatedUrlQueryVariables.find(srcString => srcString.includes('companyId='));
-  const languageUrlVariable = separatedUrlQueryVariables.find(srcString => srcString.includes('lang='));
+  const companyIdUrlVariable = separatedQueryVariables?.find(srcString => srcString.includes('companyId='));
+  const languageUrlVariable = separatedQueryVariables?.find(srcString => srcString.includes('lang='));
 
-  const companyId = companyIdUrlVariable.split('=')[1];
-  const language = languageUrlVariable.split('=')[1];
+  const companyId = companyIdUrlVariable?.split('=')[1];
+  const language = languageUrlVariable?.split('=')[1];
 
   return { companyId, language };
 }
@@ -153,12 +164,11 @@ function getCompanyIdFromSrcUrl() {
   if (scriptSrc.includes('?')) { // a "?" in the url indicates that query variables are present
     const { companyId } = extractQueryVariablesFromSrc(scriptSrc);
     return companyId;
-  } else {
-    return 'uqfv4VO0n3dG72fmjUub';
   }
+  return '';
 }
 
-function sortRolesByType(jobListings) {
+function sortJobListingsByType(jobListings) {
   const dormantJobListings = jobListings.filter(jobListing => jobListing.type === 'DORMANT');
   const otherJobListings = jobListings.filter(jobListing => jobListing.type !== 'DORMANT');
 
@@ -173,7 +183,7 @@ function sortRolesByType(jobListings) {
   return sortedJobListings;
 }
 
-function getTranslation(text) {
+function getTranslatedText(text, swedish, english) {
   const scriptSrc = document.getElementById('_jobnet-modal-script').src;
   const { language } = extractQueryVariablesFromSrc(scriptSrc);
 
@@ -187,25 +197,62 @@ function getTranslation(text) {
     case 'dormant':
       if (language === 'sv') return 'Vilade intresse';
       if (language === 'en') return 'Future interest';
-    case 'prioritized':
+    case 'continuous':
       if (language === 'sv') return 'Prioriterad ansökan';
       if (language === 'en') return 'Prioritized application';
+    case 'active':
+      if (language === 'sv') return 'Aktiv rekrytering';
+      if (language === 'en') return 'Active recruitment';
+    case 'role-title':
+      if (language === 'sv') return swedish.trim().length ? swedish : english;
+      if (language === 'en') return english.trim().length ? english : swedish;
     default:
       return '';
   }
 }
 
+function getJobListingTypeText(type) {
+  switch (type) {
+    case 'DORMANT':
+      return getTranslatedText('dormant');
+    case 'CONTINUOUS':
+      return getTranslatedText('continuous');
+    case 'ACTIVE':
+      return getTranslatedText('active');
+    default:
+      return '';
+  }
+}
+
+function getJobListingTypeIcon(type) {
+  switch (type) {
+    case 'DORMANT':
+      return 'icons/16/Time.svg';
+    case 'CONTINUOUS':
+      return 'icons/16/Continuous.svg';
+    case 'ACTIVE':
+      return 'icons/16/Binocular.svg';
+    default:
+      return '';
+  }
+}
+
+function setStyling(element, styles) {
+  const oneLineStyles = styles.replaceAll('\n', '');
+  const modifiedStylesForDOM = oneLineStyles.replaceAll('  ', '')
+  element.setAttribute('style', modifiedStylesForDOM);
+}
+
 function ModalHeader() {
   function CloseModalButton() {
     const closeButton = document.createElement('button');
-
-    const cb = closeButton.style;
-    cb.border = 'none';
-    cb.borderRadius = '50%';
-    cb.backgroundColor = 'transparent';
-    cb.cursor = 'pointer';
-    cb.display = 'flex';
-    cb.alignItems = 'center';
+    setStyling(closeButton, `
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    `)
 
     const xIcon = document.createElement('img');
     xIcon.src = "icons/24/X.svg";
@@ -218,23 +265,25 @@ function ModalHeader() {
 
   function ModalTitle() {
     const modalText = document.createElement('h4');
-    modalText.textContent = getTranslation('title');
-    const mt = modalText.style;
-    mt.color = '#303238';
-    mt.fontSize = '18px';
-    mt.lineHeight = '135%';
-    mt.fontWeight = 700;
+    modalText.textContent = getTranslatedText('title');
+    setStyling(modalText, `
+      color: #303238;
+      font-size: 18px;
+      line-height: 135%;
+      font-weight: 700;
+    `)
 
     return modalText;
   }
 
   const modalHeader = document.createElement('div');
-  const mh = modalHeader.style;
-  mh.display = 'flex';
-  mh.alignItems = 'center';
-  mh.justifyContent = 'space-between';
-  mh.marginTop = isSmallScreen ? '5px' : '20px';
-  mh.padding = isSmallScreen ? '0 24px' : '0 40px';
+  setStyling(modalHeader, `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: ${isSmallScreen ? '5px' : '20px'};
+    padding: ${isSmallScreen ? '0 24px' : '0 40px'};
+  `)
 
   modalHeader.appendChild(ModalTitle());
   modalHeader.appendChild(CloseModalButton());
@@ -244,67 +293,62 @@ function ModalHeader() {
 
 function RoleCardsContainer() {
   const container = document.createElement('div');
-  const c = container.style;
-  c.display = isSmallScreen ? 'grid' : 'flex';
-  c.gridTemplateColumns = '100%'
-  c.flexDirection = 'column';
-  c.gap = '9px';
-  c.overflowY = isSmallScreen ? 'auto' : 'scroll';
-  c.margin = isSmallScreen ? '0 24px 12px 24px' : '0 40px 40px 40px';
-  c.paddingRight = !isSmallScreen && '8px';
-  c.maxHeight = isSmallScreen && '400px';
+  setStyling(container, `
+    display: ${isSmallScreen ? 'grid' : 'flex'};
+    grid-template-columns: 100%;
+    flex-direction: column;
+    gap: 9px;
+    overflow-y: ${isSmallScreen ? 'auto' : 'scroll'};
+    margin: ${isSmallScreen ? '0 24px 12px 24px' : '0 40px 40px 40px'};
+    padding-right: ${!isSmallScreen && '8px'};
+    max-height: ${isSmallScreen && '400px'};
+  `)
 
   if (jobListings.length) {
-    const sortedJobListings = sortRolesByType(jobListings);
+    const sortedJobListings = sortJobListingsByType(jobListings);
     sortedJobListings.map((jobListing) => {
       container.appendChild(ModalRoleCard(jobListing));
     })
   } else {
     const emptyText = document.createElement('span');
-    emptyText.textContent = getTranslation('no-jobs');
-    const et = emptyText.style;
-    et.color = '#586D79';
+    emptyText.textContent = getTranslatedText('no-jobs');
+    setStyling(emptyText, `color: #586D79;`)
     container.appendChild(emptyText);
   }
 
   return container;
 }
 
-function getJobListingTypeText(type) {
-  if (type === 'DORMANT') {
-    return getTranslation('dormant');
-  } else {
-    return getTranslation('prioritized');
-  }
-}
-
 function ModalRoleCard(jobListing) {
   function RoleCardImage() {
     const image = document.createElement('img');
     image.src = jobListing.coverImage.accessUrl ? jobListing.coverImage.accessUrl : jobListing.company.jobListingDefaultCoverImage.accessUrl;
-    const i = image.style;
-    i.height = '115px';
-    i.width = '140px';
-    i.aspectRatio = '160 / 115';
-    i.objectFit = 'cover';
-    i.backgroundColor = '#F0F4F6';
+    setStyling(image, `
+      height: 115px;
+      width: 140px;
+      aspect-ratio: 160 / 115;
+      object-fit: cover;
+      background-color: #F0F4F6;
+    `);
 
     return image;
   }
 
   function RoleCardContent() {
     function RoleCardTitle() {
+      const swedishRoleTitle = jobListing.titleV2.entries.find(entry => entry.iso6391Code === 'sv').text;
+      const englishRoleTitle = jobListing.titleV2.entries.find(entry => entry.iso6391Code === 'en').text;
+
       const titleContainer = document.createElement('div');
-      const tc = titleContainer.style;
-      tc.display = 'flex';
-      tc.width = '100%';
+      setStyling(titleContainer, `display: flex; width: 100%;`);
 
       const title = document.createElement('span');
-      title.textContent = jobListing.titleV2.entries[0].text;
-      const t = title.style;
-      t.color = '#303238';
-      t.fontSize = 400;
-      t.fontSize = '16px';
+      title.textContent = getTranslatedText('role-title', swedishRoleTitle, englishRoleTitle);
+      setStyling(title, `
+        color: #303238;
+        font-size: 16px;
+        font-weight: 400;
+      `);
 
       titleContainer.appendChild(title);
 
@@ -313,32 +357,35 @@ function ModalRoleCard(jobListing) {
 
     function RoleCardType() {
       const type = document.createElement('div');
-      const t = type.style;
-      t.display = 'flex';
-      t.alignItems = 'center';
-      t.marginBottom = '8px';
+      setStyling(type, `
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      `)
 
       const typeText = document.createElement('span');
       typeText.textContent = getJobListingTypeText(jobListing.type);
-      const tt = typeText.style;
-      tt.color = '#586D79';
-      tt.fontSize = '14px';
-      tt.lineHeight = '135%';
-      tt.fontWeight = 400;
+      setStyling(typeText, `
+        color: #586D79;
+        font-size: 14px;
+        line-height: 135%;
+        font-weight: 400;
+      `)
 
       const typeIconContainer = document.createElement('div');
-      const tic = typeIconContainer.style;
-      tic.backgroundColor = '#F0F4F6';
-      tic.height = '24px';
-      tic.width = '24px';
-      tic.display = 'flex';
-      tic.alignItems = 'center';
-      tic.justifyContent = 'center';
-      tic.borderRadius = '100%';
-      tic.marginRight = '8px';
+      setStyling(typeIconContainer, `
+        background-color: #F0F4F6;
+        height: 24px;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        margin-right: 8px;
+      `)
 
       const typeIcon = document.createElement('img');
-      typeIcon.src = jobListing.type === 'DORMANT' ? 'icons/16/Time.svg' : 'icons/16/Continuous.svg';
+      typeIcon.src = getJobListingTypeIcon(jobListing.type);
 
       typeIconContainer.appendChild(typeIcon);
       type.appendChild(typeIconContainer);
@@ -350,14 +397,15 @@ function ModalRoleCard(jobListing) {
     const content = document.createElement('a');
     content.href = `https://jobnet.se/${jobListing.urlSlug}`;
     content.target = '_blank';
-    const c = content.style;
-    c.padding = '16px';
-    c.flex = '1 1 0%';
-    c.display = 'flex';
-    c.flexDirection = 'column';
-    c.justifyContent = 'start';
-    c.cursor = 'pointer';
-    c.textDecoration = 'none';
+    setStyling(content, `
+      padding: 16px;
+      flex: 1 1 0%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      cursor: pointer;
+      text-decoration: none
+    `)
 
     content.appendChild(RoleCardType());
     content.appendChild(RoleCardTitle());
@@ -366,14 +414,15 @@ function ModalRoleCard(jobListing) {
   }
 
   const roleCard = document.createElement('div');
-  const rc = roleCard.style;
-  rc.backgroundColor = 'white';
-  rc.display = 'flex';
-  rc.marginBottom = '3px';
-  rc.boxShadow = 'rgb(0 0 0 / 6%) 0px 3px 0px';
-  rc.borderRadius = '12px';
-  rc.overflow = 'hidden';
-  rc.minHeight = isSmallScreen ? 'unset' : '115px';
+  setStyling(roleCard, `
+    background-color: white;
+    display: flex;
+    margin-bottom: 3px;
+    box-shadow: rgb(0 0 0 / 6%) 0px 3px 0px;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: ${isSmallScreen ? 'unset' : '115px'}
+  `)
 
   !isSmallScreen && roleCard.appendChild(RoleCardImage());
   roleCard.appendChild(RoleCardContent());
