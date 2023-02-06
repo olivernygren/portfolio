@@ -27,6 +27,8 @@ export const LastCTA = () => {
 		>
 			<h2>{data.lastCta.heading}</h2>
 			<a href="mailto:oliver.nygren@icloud.com">{data.lastCta.buttonText}</a>
+			<a href="javascript: JobnetModal.open()">Öppna modal</a>
+			{/* <button onClick={() => JobnetModal.open()}>Öppna modal</button> */}
 		</motion.div>
 	);
 };

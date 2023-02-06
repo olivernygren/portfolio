@@ -1,10 +1,14 @@
+/* eslint-disable no-fallthrough */
 const isSmallScreen = window.innerWidth < 767;
 let jobListings = [];
 
+// eslint-disable-next-line no-unused-expressions
 !function () {
+  console.log('generera');
   generateModal();
 }();
 
+// eslint-disable-next-line no-unused-vars
 var JobnetModal = {
   open: () => showModal()
 };
@@ -16,6 +20,7 @@ async function generateModal() {
 }
 
 function renderModalInDOM() {
+  console.log('renderModalInDOM');
   const modalContainer = document.createElement('div');
   modalContainer.id = '_jobnet-joblistings-modal-container';
   setStyling(modalContainer, `
@@ -52,6 +57,7 @@ function renderModalInDOM() {
 }
 
 async function fetchJobListings() {
+  console.log('fetchJobListings');
   const companyId = getCompanyIdFromSrcUrl();
 
   await fetch('https://api-dev-dot-stable-glass-326613.ew.r.appspot.com/api/graphql', {
@@ -92,7 +98,7 @@ async function fetchJobListings() {
   })
     .then((res) => res.json())
     .then((result) => {
-      console.log(result);
+      console.log('result:', result);
       if (result.data.company.jobListings.length) {
         jobListings = result.data.company.jobListings;
       } else {
@@ -100,12 +106,13 @@ async function fetchJobListings() {
       }
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       jobListings = [];
     })
 }
 
 function renderJobListings() {
+  console.log('renderJobListings');
   const modalBody = document.getElementById('_jobnet-joblistings-modal');
   modalBody.appendChild(RoleCardsContainer());
 }
@@ -129,8 +136,7 @@ function showModal() {
 function closeModal() {
   const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
   setStyling(modalContainer, `
-    opacity: 0;
-    pointer-events: none;
+    display: none;
   `)
   setPageScroll('enabled');
 };
