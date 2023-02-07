@@ -427,8 +427,9 @@ function ModalRoleCard(jobListing) {
     box-shadow: rgb(0 0 0 / 6%) 0px 3px 0px;
     border-radius: 12px;
     overflow: hidden;
-    min-height: ${isSmallScreen ? 'unset' : '115px'}
+    min-height: 115px;
   `)
+    // min-height: ${isSmallScreen ? 'unset' : '115px'}
 
   !isSmallScreen && roleCard.appendChild(RoleCardImage());
   roleCard.appendChild(RoleCardContent());
