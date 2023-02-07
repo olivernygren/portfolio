@@ -195,7 +195,7 @@ function getTranslatedText(text, swedish, english) {
 
   switch (text) {
     case 'title':
-      if (language === 'sv') return 'Se våra lediga jobb på Jobnet.se';
+      if (language === 'sv') return 'Läs mer och sök våra roller på Jobnet';
       if (language === 'en') return 'View all our available positions at Jobnet.se';
     case 'no-jobs':
       if (language === 'sv') return 'Just nu har vi inga lediga tjänster';
