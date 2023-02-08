@@ -16,6 +16,7 @@ async function generateModal() {
   renderModalInDOM();
   await fetchJobListings();
   renderJobListings();
+  addButtonEventListener();
 };
 
 function renderModalInDOM() {
@@ -113,7 +114,17 @@ function renderJobListings() {
   modalBody.appendChild(RoleCardsContainer());
 };
 
-function showModal() {
+function addButtonEventListener() {
+  setTimeout(() => {
+    const openModalButton = document.getElementById('_jobnet-modal-open-link');
+    console.log(openModalButton);
+    openModalButton.addEventListener('click', (e) => showModal(e));
+  }, 200);
+}
+
+function showModal(e) {
+  e.preventDefault();
+
   setPageScroll('disabled');
   const modalContainer = document.getElementById('_jobnet-joblistings-modal-container');
   setStyling(modalContainer, `

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { useQuery } from 'urql';
 
 import { LastCTAQuery } from '../../graphql';
@@ -29,8 +29,8 @@ export const LastCTA = () => {
 			<h2>{data.lastCta.heading}</h2>
 			<a href="mailto:oliver.nygren@icloud.com">{data.lastCta.buttonText}</a>
 			{/* eslint-disable-next-line no-script-url */}
-			<a href="javascript: JobnetModal.open()">Öppna modal</a>
-			{/* <button onClick={() => JobnetModal.open()}>Öppna modal</button> */}
+			{/* <a href="javascript: JobnetModal.open()">Öppna modal</a> */}
+			<a href="" id='_jobnet-modal-open-link'>Öppna modal</a>
 		</motion.div>
 	);
 };
