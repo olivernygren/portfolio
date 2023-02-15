@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 const isSmallScreen = window.innerWidth < 767;
 let jobListings = [];
 
@@ -347,6 +348,7 @@ function RoleCardsContainer() {
 
   if (jobListings.length) {
     const sortedJobListings = sortJobListingsByType(jobListings);
+    // eslint-disable-next-line array-callback-return
     sortedJobListings.map((jobListing) => {
       container.appendChild(ModalRoleCard(jobListing));
     })

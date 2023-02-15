@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { motion } from 'framer-motion';
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { useQuery } from 'urql';
 
 import { LastCTAQuery } from '../../graphql';
