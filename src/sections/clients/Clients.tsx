@@ -11,8 +11,6 @@ export const Clients = () => {
 	const [currentTestimonial, setCurrentTestimonial] = useState(0);
 	const { width } = useWindowDimensions();
 
-	// mobileClientCards
-
 	const [result] = useQuery({ query: ClientsQuery });
 	const { data, fetching, error } = result;
 
@@ -54,6 +52,7 @@ export const Clients = () => {
 									index={index}
 									currentTestimonial={currentTestimonial}
 									setCurrentTestimonial={setCurrentTestimonial}
+									key={testimonial}
 								/>
 							)
 						)}

@@ -44,9 +44,8 @@ export const Skills = () => {
 			<img src={data.skills.image.url} alt="Skills" className="skills-image" />
 			<div className="text">
 				<h2>{data.skills.heading}</h2>
-				{/* <p>{data.skills.textBody}</p> */}
 				{data.skills.skillCategories.map((skillCategory: SkillCategory) => (
-					<div className="skill-category">
+					<div className="skill-category" key={skillCategory.title}>
 						<h5>{skillCategory.title}</h5>
 						<motion.div
 							className="chip-container"
@@ -55,7 +54,7 @@ export const Skills = () => {
 							animate="show"
 						>
 							{skillCategory.skills.map((skill: string) => (
-								<motion.div className="chip" variants={chip}>
+								<motion.div className="chip" variants={chip} key={skill}>
 									<p>{skill}</p>
 								</motion.div>
 							))}

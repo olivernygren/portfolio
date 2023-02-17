@@ -25,7 +25,7 @@ export const Footer = () => {
 			<div className="social-media-icons">
 				{data.footer.socialMediaIcons.map(
 					(socialMediaLink: SocialMediaLink) => (
-						<motion.a href={socialMediaLink.link} whileHover={{ scale: 1.1 }}>
+						<motion.a href={socialMediaLink.link} whileHover={{ scale: 1.1 }} key={socialMediaLink.link}>
 							<img
 								src={socialMediaLink.icon.url}
 								alt="Icon"
