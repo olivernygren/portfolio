@@ -2,14 +2,6 @@
 const isSmallScreen = window.innerWidth < 767;
 let jobListings = [];
 
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  appendEventListener();
-} else {
-  window.addEventListener('DOMContentLoaded', () => {
-    appendEventListener();
-  })
-}
-
 // eslint-disable-next-line no-unused-expressions
 !function () {
   generateModal();
@@ -19,6 +11,7 @@ async function generateModal() {
   renderModalInDOM();
   await fetchJobListings();
   renderJobListings();
+  appendEventListener();
 };
 
 function renderModalInDOM() {
@@ -118,8 +111,11 @@ function renderJobListings() {
 };
 
 function appendEventListener() {
+  console.log('appendEventListener');
   const openModalElement = document.getElementById('_jobnet-modal-open-link');
+  console.log(openModalElement);
   openModalElement.addEventListener('click', (e) => showModal(e));
+  console.log('klar');
 }
 
 function showModal(e) {
