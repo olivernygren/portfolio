@@ -111,11 +111,8 @@ function renderJobListings() {
 };
 
 function appendEventListener() {
-  console.log('appendEventListener');
   const openModalElement = document.getElementById('_jobnet-modal-open-link');
-  console.log(openModalElement);
   openModalElement.addEventListener('click', (e) => showModal(e));
-  console.log('klar');
 }
 
 function showModal(e) {
